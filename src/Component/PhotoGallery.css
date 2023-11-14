@@ -1,0 +1,39 @@
+/* PhotoGallery.css */
+
+.concaved-carousel {
+    width: auto;
+    height: auto; /* Adjust the height as needed */
+    margin: auto;
+    overflow:hidden;
+  }
+  
+  .custom-caption {
+    background-color: transparent; /* Add a semi-transparent background to the caption */
+    color: white; /* Set the text color to white or a color that contrasts with your background */
+    text-align: center;
+    padding: 30px; /* Add padding to the caption */
+  } 
+  
+  .custom-caption h3 {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+  
+  .custom-caption p {
+    font-size: 18px; /* Adjust the font size as needed */
+  }
+  .carousel-indicators {
+    bottom: 10px; /* Adjust the position from the bottom as needed */
+  }
+  
+  .carousel-indicators button {
+    background-color: transparent; /* Change the background color */
+    border: 1px solid transparent; /* Change the border color */
+    margin: 0 5px; /* Adjust the spacing between indicators */
+    width: 1px; /* Adjust the width of the indicators */
+    height: 1px; /* Adjust the height of the indicators */
+    border-radius: 50%; /* Make the indicators circular */
+  }
+  
+  .carousel-indicators .active {
+    background-color: transparent; /* Change the active indicator color */
+  }

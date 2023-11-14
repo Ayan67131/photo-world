@@ -1,0 +1,114 @@
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+
+h1{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h2{
+  font-size: large;
+
+}
+
+
+
+header h1 {
+  margin: 0;
+  
+}
+
+.competition-header {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  position: top;
+}
+
+.card-container {
+  display: flex;
+  gap: 20px; /* Adjust the gap between cards as needed */
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+section {
+  padding: 20px;
+}
+
+
+.featured-photos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.featured-photo {
+  width: 30%;
+  margin: 10px;
+}
+
+.featured-photo img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  width: 30%;
+  margin: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button:focus {
+  outline: none;
+}
+
+.about{
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-image: url('https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  color:#f9f9f9 ;
+}
+ 

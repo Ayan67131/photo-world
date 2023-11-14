@@ -1,0 +1,121 @@
+/* NavBar.css */
+
+.navbar {
+  background-color: #333;
+  padding: 10px;
+  width: 100%;
+  transition: background-color 0.3s ease; 
+  /* Add smooth transition for background color */
+}
+
+.navbar-brand{
+  font-size: large;
+  font-weight: 600;
+}
+
+.navbar.scrolled {
+  background-color: #333; /* Change to the desired background color when scrolled */
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+body {
+  padding-top: 60px;
+}
+
+.buttons {
+  background-color: red;
+  border: none;
+}
+
+.buttons:hover {
+  background-color: #ffffff;
+}
+
+.icon {
+  color:#333;
+}
+
+.buttons:hover .icon {
+  color: red;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff80;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  display: none;
+}
+
+.dropdown-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-list {
+  display: block;
+}
+
+
+
+/* Customize modal background color */
+.modal-content {
+  background-color: #fdf9f9;
+   /* Set your desired background color */
+}
+
+/* Customize modal overlay background color */
+.modal-backdrop {
+  background-color: rgb(0, 0, 0)
+  
+  
+  /* Set your desired background color and opacity */
+}
+
+/* Customize modal title style */
+.modal-title {
+  font-size: 1.5rem; /* Set your desired font size */
+  color: #050202; /* Set your desired text color */
+}
+
+/* Customize modal body style */
+.modal-body {
+  color: #000; /* Set your desired text color */
+}
+
+/* Customize modal footer style */
+.modal-footer {
+  background-color:#ffffff8a;; /* Set your desired background color */
+  border-top: 1px solid #ccc; /* Add a border at the top of the modal footer */
+}
