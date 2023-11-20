@@ -1,14 +1,13 @@
 import React from "react";
 import './NavBar.css'
-import Login from "./Login";
-import SignUp from "./SignUp";
+
 
 const NavBar = () => {
   return (
 
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/">
         Photo World
       </a>
@@ -35,7 +34,7 @@ const NavBar = () => {
           <li class="nav-item active dropdown">
             <a
               class="nav-link dropdown-toggle"
-              href="#"
+              href="/"
               id="navbarDropdownMenuLink"
               role="button"
               data-toggle="dropdown"
@@ -51,7 +50,7 @@ const NavBar = () => {
               <a class="dropdown-item" href="/signup">
                 Sign Up
               </a>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="/admin">
                 Admin Login
               </a>
             </div>
@@ -60,7 +59,7 @@ const NavBar = () => {
           <li class="nav-item active dropdown">
             <a
               class="nav-link dropdown-toggle"
-              href="#"
+              href="/"
               id="navbarDropdownMenuLink"
               role="button"
               data-toggle="dropdown"

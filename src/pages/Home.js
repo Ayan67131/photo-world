@@ -29,9 +29,9 @@ class HomePage extends React.Component {
           </div>
 
           {/* the card component need to utilize for loops to render many components */}
-          <div className="card-container mt-5">
+          
            <CardComponent />
-          </div>
+          
         </section>
       </div>
     );
