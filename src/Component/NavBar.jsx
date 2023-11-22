@@ -1,12 +1,16 @@
-import React from "react";
-import './NavBar.css'
-
+import React, { useEffect, useState } from "react";
+import "./NavBar.css";
 
 const NavBar = () => {
+  useEffect(()=>{
+    if(sessionStorage.getItem('email')!=null){
+      document.getElementById('navbarDropdownMenuLink').style.display='none';
+    }
+    else{
+      document.getElementById('navbarDropdownMenuLink').style.display='block'
+    }
+  })
   return (
-
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/">
         Photo World
@@ -50,7 +54,7 @@ const NavBar = () => {
               <a class="dropdown-item" href="/signup">
                 Sign Up
               </a>
-              <a class="dropdown-item" href="/admin">
+              <a class="dropdown-item" href="/Adminlogin">
                 Admin Login
               </a>
             </div>

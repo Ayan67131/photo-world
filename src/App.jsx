@@ -10,6 +10,8 @@ import SignUp from './Component/SignUp';
 import CompetitonDetails from './Component/Competition/CompetitonDetails'
 import { useState } from 'react';
 import Admin from './Component/Admin';
+import FileUploadForm from './Component/Competition/FileUploadForm';
+import AdminLogin from './Component/Admin/AdminLogin';
 
 function App() {
   
@@ -28,6 +30,8 @@ function App() {
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/admin" element={<Admin/>} />
           <Route path="/contest-details/:id" element={<CompetitonDetails/>} />
+          <Route path="/fileUploadForm" element={<FileUploadForm/>}/>
+          <Route path="/AdminLogin" element={<AdminLogin/>}/>
 
         </Routes>
         {/* <Footer />  */}

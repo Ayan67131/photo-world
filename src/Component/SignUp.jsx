@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import './SignUp.css'
 import Axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
+  const navigate = useNavigate();
   const url = "http://localhost:8080/user/add";
   const[data,setData] = useState({
     name:"",
     email:"",
     address:"",
-    phone:""
+    phone:"",
+    password:""
   })
 
   function submit(e){
@@ -16,10 +20,17 @@ const SignUp = () => {
       name:data.name,
       email:data.email,
       address:data.address,
-      phone:data.phone
+      phone:data.phone,
+      password:data.password
     })
     .then(res=>{
-      console.log(res.data)
+      if(res.status===200){
+        navigate('/login');
+        alert("Registration Success");
+      }
+      else{
+        console.log("Registration Failed");
+      }
     })
   }
 
@@ -27,7 +38,6 @@ const SignUp = () => {
     const newData={...data}
     newData[e.target.id] = e.target.value
     setData(newData)
-    console.log(newData)
   }
   return (
     <div class="SignUp">
@@ -68,6 +78,15 @@ const SignUp = () => {
               placeholder="Email"
               onChange={(e)=>handle(e)}
               value={data.email}
+            />
+            <label for="exampleInputEmail1">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              onChange={(e)=>handle(e)}
+              value={data.password}
             />
             <label for="exampleInputAddress">Address</label>
             <input

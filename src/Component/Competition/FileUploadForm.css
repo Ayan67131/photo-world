@@ -1,0 +1,39 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url('https://images.unsplash.com/photo-1482977036925-e8fcaa643657?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHdoaXRlJTIwJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D') center/cover no-repeat fixed; 
+
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+
+.submit {
+    width: 400px; /* Adjust the width of the form container */
+    padding: 20px;
+    background-color: #f5f5f5; /* Add your desired background color */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Adjust this value based on your layout needs */
+  }
+
+  button {
+    background-color: #00ff3c; /* Add your desired button color */
+    color: #fff; /* Add your desired text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #00b351a7; /* Change the button color on hover */
+  }
