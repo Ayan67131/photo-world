@@ -1,25 +1,8 @@
-.card{
-  height: 70vh;
-  width: 40vw;
-  margin: auto;
- display: flex;
- align-items: center;
- justify-content: center;
- background-color: transparent;
+.sign-up-box{
+  width: 55%;
+  margin-top: 2%;
 }
 
-.SignUp h1{
-  font-weight: 600;
-  margin-bottom: 30px;
+.sign-up-card-body{
+  margin-top: 20%;
 }
-.SignUp{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.btn-link:hover{
-  text-decoration: none;
-  background-color: transparent;
-}
-

@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./NavBar.css";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const logout=(e)=>{
+    document.getElementById('logout').style.display='none';
+    sessionStorage.removeItem('email');
+    navigate("/");
+  }
+
   useEffect(()=>{
     if(sessionStorage.getItem('email')!=null){
       document.getElementById('navbarDropdownMenuLink').style.display='none';
+      document.getElementById('logout').style.display='block';
     }
     else{
       document.getElementById('navbarDropdownMenuLink').style.display='block'
@@ -73,21 +83,9 @@ const NavBar = () => {
               Menu
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">
-                Help
-              </a>
-              <a class="dropdown-item" href="#">
-                Pricing
-              </a>
-              <a class="dropdown-item" href="#">
-                Community GuideLines
-              </a>
-              <a class="dropdown-item" href="#">
-                About Photo World
-              </a>
-              <a class="dropdown-item" href="#">
-                Terms and Pricing
-              </a>
+              <Button type="button" class="btn btn-link" id="logout" onClick={(e)=>logout()}>
+                Logout
+              </Button>
             </div>
           </li>
         </ul>

@@ -1,64 +1,93 @@
-import React from "react";
-import "../Admin.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import "../Login.css";
+import React, { useState } from "react";
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
+import { Button } from "react-bootstrap";
 
-const  AdminLogin = () => {
-    const navigate=useNavigate();
+const Login = () => {
+  const navigate = useNavigate();
+  const url = "http://localhost:8080/login";
+  const [data, setData] = useState({
+    userName: "",
+    password: "",
+  });
 
-    function submit(e){
-        e.preventDefault();
-        navigate ('/Admin');
-    
-      }
-    
+  function submit(e) {
+    navigate("/admin");
+    e.preventDefault();
+  }
 
+  function handle(e) {
+    const newData = { ...data };
+    newData[e.target.id] = e.target.value;
+    setData(newData);
+  }
   return (
-    <div class="AdminLoginPage">
-      <h1>Sign In</h1>
+    <div>
+      <form onSubmit={(e) => submit(e)}>
+        <MDBContainer className="my-5">
+          <MDBCard>
+            <MDBRow className="g-0">
+              <MDBCol md="6">
+                <MDBCardImage
+                  src="https://images.unsplash.com/photo-1611963169787-ac9e3a65b27b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTI4fHxwaG90b2dyYXBoeXxlbnwwfHwwfHx8MA%3D%3D"
+                  alt="login form"
+                  className="rounded-start w-100"
+                />
+              </MDBCol>
 
-      <div class="card">
-        <div class="card-body">
-          {/* form  */}
+              <MDBCol md="6">
+                <MDBCardBody className="d-flex flex-column">
+                  <div className="d-flex flex-row mt-2">
+                    <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: "#ff6219" }} />
+                    <span className="h1 fw-bold mb-0">Login</span>
+                  </div>
 
-          <form onSubmit={(e)=>submit(e)}>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Email"
-              />
-              <small id="emailHelp" class="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-              />
-            </div>
-            <div class="form-group"> 
-              <label for="exampleInputPassword1">Not an User?</label>
-              <a href="/signup" class="btn btn-link" role="button" aria-pressed="true">Click Here</a>
-            </div>
-          
-            <button type="submit" value="submit" class="btn btn-outline-success">
-              Login
-            </button>
-         
-            
+                  <h5 className="fw-normal my-4 pb-3" style={{ letterSpacing: "1px" }}>
+                    Admin Login
+                  </h5>
 
-          </form>
-        </div>
-      </div>
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    placeholder="Email address"
+                    id="userName"
+                    type="email"
+                    size="lg"
+                    required
+                    onChange={(e) => handle(e)}
+                    value={data.userName}
+                  />
+                  <MDBInput
+                    wrapperClass="mb-4"
+                    placeholder="Password"
+                    id="password"
+                    type="password"
+                    required
+                    size="lg"
+                    onChange={(e) => handle(e)}
+                    value={data.password}
+                  />
+
+                  <Button type="submit" className="btn btn-primary"> Login</Button>
+                </MDBCardBody>
+              </MDBCol>
+            </MDBRow>
+          </MDBCard>
+        </MDBContainer>
+      </form>
     </div>
   );
 };
 
-export default AdminLogin;
+export default Login;

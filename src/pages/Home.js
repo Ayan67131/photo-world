@@ -1,10 +1,10 @@
 // HomePage.js
 
 import React from "react";
-import { Card, Button } from "react-bootstrap";
 import "./Home.css";
 import PhotoGallery from "../Component/PhotoGallery";
 import CardComponent from "../Component/CardComponent";
+import Carousel from "../Component/Elements/Carousel";
 
 class HomePage extends React.Component {
   handleButtonClick = () => {
@@ -13,26 +13,10 @@ class HomePage extends React.Component {
 
   render() {
     return (
-
-
       <div className="HomePage">
-        
-        <section className="about">
-        <h1>A world of great photos and awards , in one place</h1>
-        <br></br>
-        <h2>Enter now to win great prizes and your work seen around the world</h2>
-        </section>
-        
-        <section>
-          <div className="competition-header">
-            <h1>Competitons</h1>
-          </div>
-
-          {/* the card component need to utilize for loops to render many components */}
-          
-           <CardComponent />
-          
-        </section>
+        <Carousel />
+        <br/><br/>
+        <CardComponent />
       </div>
     );
   }
