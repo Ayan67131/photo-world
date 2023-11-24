@@ -42,7 +42,7 @@ const NavBar = () => {
       <MDBContainer fluid>
         <MDBNavbarBrand href="#">
           <img
-            src="../images/Photo.png"
+            src="https://user-images.githubusercontent.com/31042772/285493028-5c1eb053-08ca-4746-b125-18d3bad23c77.png"
             height="30"
             alt=""
             loading="lazy"
