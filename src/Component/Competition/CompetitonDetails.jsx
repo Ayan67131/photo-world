@@ -1,116 +1,203 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import "./CompetitionDetails.css";
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBTypography,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-react-ui-kit";
+import { Alert, Button } from "react-bootstrap";
 
 const CompetitionDetails = () => {
+  const [basicModal, setBasicModal] = useState(false);
+
+  const toggleUploadModal = () => setBasicModal(!basicModal);
   const backgroundImageUrl =
     "https://images.unsplash.com/photo-1699453223942-dfead4b64e24?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const location = useLocation();
   const id = location.pathname.split("/").pop();
 
   const [contestDetail, setContestDetail] = useState([]);
+  const [imageDetail, setImageDetail] = useState([]);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
+    const fetchImageData = async ()=>{
+      try{
+        const response = await axios.get(`http://localhost:8080/photo/find-one?id=${id}`);
+        setImageDetail(response.data);
+        console.log(response.data);
+      }catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/contest/findOne?id=${id}`);
-        setContestDetail(response.data); // Set the fetched data to the state
+        setContestDetail(response.data);
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Invoke the fetch function
-  }, [id]); // Include 'id' in the dependency array to re-fetch when it changes
+    fetchData();
+    fetchImageData();
+  }, [id]);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      const url =
+        `http://localhost:8080/photo/upload?contestId=${id}&userId=` +
+        sessionStorage.getItem("email");
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Photo uploaded successfully:", response.data);
+      alert("Image Uploaded");
+      toggleUploadModal();
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+    }
+  };
 
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <div
-        className="container"
-        style={{ position: "relative", height: "40vh", overflow: "hidden" }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${contestDetail.coverPhotoUrl})`,
-            backgroundSize: "cover",
-            zIndex: -1, // Set a higher zIndex for the background
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            textAlign: "center",
-            color: "white",
-            zIndex: 1, // Set a lower zIndex for the text
-          }}
-        >
-          <p style={{ fontSize: "50px", fontWeight: "700" }}>{contestDetail.name}</p>
-          <p style={{ fontFamily: "monospace", fontSize: "20px" }}>
-            powered by <span>{contestDetail.sponsor}</span>
-          </p>
-        </div>
-      </div>
+    <div className="gradient-custom-2" style={{ backgroundColor: "#9de2ff" }}>
+      <MDBContainer className="py-5 h-100">
+        <MDBRow className="justify-content-center align-items-center h-100">
+          <MDBCol lg="30" xl="20">
+            <MDBCard>
+              <div
+                className="rounded-top text-white d-flex flex-row"
+                style={{ backgroundColor: "#000", height: "200px" }}
+              >
+                <MDBCardImage
+                  src={contestDetail.coverPhotoUrl}
+                  alt="Contest Cover"
+                  className="w-100 rounded-3"
+                />
+              </div>
+              <br></br>
 
-      <div
-        className=" d-flex bg-light "
-        style={{
-          width: "50vw",
-
-          zIndex: 2, // Set an even lower zIndex for the additional div
-          position: "absolute",
-          top: "37vh", // Set the top position to be below the first div
-          border: "1px solid black",
-          borderRadius: "1%",
-        }}
-      >
-        <div className="col-7 pt-3 border border-4">
-          <div
-            className="p-2 "
-            style={{ height: "100%", fontFamily: "monospace", fontSize: "19px" }}
-          >
-            {/* Content for the 75% width div */}
-            <p style={{ fontWeight: "500" }}>Brief</p>
-            <p className="text-end" style={{ fontStyle: "oblique" }}>
-              {contestDetail.brief}
-            </p>
-          </div>
-        </div>
-
-        {/* right panel   */}
-        <div className="col-5 bl-1">
-          <div className="d-flex flex-column " style={{ height: "100%", fontSize: "20px" }}>
-            {/* Content for the 25% width div */}
-            <div className="mb-2" style={{ paddingTop: "20px" }}>
-              <strong> {contestDetail.remainingDays} days </strong> remaining{" "}
-            </div>
-
-            <div className="mb-2">
-              <strong>{contestDetail.photoCount}</strong> photos
-            </div>
-            <div className="mb-2">
-              <strong>{contestDetail.photographerCount}</strong> photographers{" "}
-            </div>
-            <div className="mb-2">
-              Judged by <strong>{contestDetail.judge}</strong>
-            </div>
-            <div className="mb-2">
-              Winner Announcement <strong>{contestDetail.winnerAnnouncementDate}</strong>
-            </div>
-            <button type="button" class="btn btn-outline-success">
-              Submit Photo
-            </button>
-          </div>
-        </div>
-      </div>
+              <MDBCardBody className="text-black p-4">
+                <MDBTypography tag="h5">{contestDetail.name}</MDBTypography>
+                <MDBCardText>{contestDetail.sponsor}</MDBCardText>
+                <div className="mb-5">
+                  <p style={{ fontWeight: "500" }}>Brief</p>
+                  <p className="text-end" style={{ fontStyle: "oblique" }}>
+                    {contestDetail.brief}
+                  </p>
+                </div>
+                <Button onClick={toggleUploadModal} className="btn btn-info btn-block">
+                  Add Photo
+                </Button>
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <MDBCardText className="lead fw-normal mb-0">Recent photos</MDBCardText>
+                  <MDBCardText className="mb-0">
+                    <a href="#!" className="text-muted">
+                      Show all
+                    </a>
+                  </MDBCardText>
+                </div>
+                <MDBRow>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow className="g-2">
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                  <MDBCol className="mb-2">
+                    <MDBCardImage
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                      alt="image 1"
+                      className="w-100 rounded-3"
+                    />
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      <MDBModal open={basicModal} setopen={setBasicModal} tabIndex="-1">
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Hi {sessionStorage.getItem("email")} Upload New Photo</MDBModalTitle>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text" id="inputGroupFileAddon01">
+                    Upload
+                  </span>
+                </div>
+                <div className="custom-file">
+                  <input
+                    type="file"
+                    className="custom-file-input"
+                    id="inputGroupFile01"
+                    onChange={handleFileChange}
+                  />
+                  <label className="custom-file-label" htmlFor="inputGroupFile01">
+                    Choose file
+                  </label>
+                </div>
+              </div>
+            </MDBModalBody>
+            <MDBModalFooter>
+              <Button className="btn btn-danger" onClick={toggleUploadModal}>
+                Close
+              </Button>
+              <Button onClick={handleUpload} className="btn btn-primary">
+                Save changes
+              </Button>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </div>
   );
 };
