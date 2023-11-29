@@ -36,12 +36,13 @@ const CompetitionDetails = () => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const fetchImageData = async ()=>{
-      try{
+    const fetchImageData = async () => {
+      try {
         const response = await axios.get(`http://localhost:8080/photo/find-one?id=${id}`);
         setImageDetail(response.data);
+        console.log("======================================");
         console.log(response.data);
-      }catch (error) {
+      } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
@@ -55,8 +56,22 @@ const CompetitionDetails = () => {
       }
     };
 
+    const fetchAllData = async () => {
+      try {
+        const [contestResponse, imageResponse] = await Promise.all([
+          axios.get(`http://localhost:8080/contest/findOne?id=${id}`),
+          axios.get("http://localhost:8080/photo/find-all"),
+        ]);
+
+        setContestDetail(contestResponse.data);
+        setImageDetail(imageResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchData();
     fetchImageData();
+    fetchAllData();
   }, [id]);
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -81,6 +96,8 @@ const CompetitionDetails = () => {
       console.log("Photo uploaded successfully:", response.data);
       alert("Image Uploaded");
       toggleUploadModal();
+
+      setImageDetail((prevState) => [...prevState, response.data]);
     } catch (error) {
       console.error("Error uploading photo:", error);
     }
@@ -94,7 +111,7 @@ const CompetitionDetails = () => {
             <MDBCard>
               <div
                 className="rounded-top text-white d-flex flex-row"
-                style={{ backgroundColor: "#000", height: "200px" }}
+                style={{ backgroundColor: "#000", height: "600px" }}
               >
                 <MDBCardImage
                   src={contestDetail.coverPhotoUrl}
@@ -125,36 +142,15 @@ const CompetitionDetails = () => {
                   </MDBCardText>
                 </div>
                 <MDBRow>
-                  <MDBCol className="mb-2">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </MDBCol>
-                  <MDBCol className="mb-2">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </MDBCol>
-                </MDBRow>
-                <MDBRow className="g-2">
-                  <MDBCol className="mb-2">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </MDBCol>
-                  <MDBCol className="mb-2">
-                    <MDBCardImage
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                      alt="image 1"
-                      className="w-100 rounded-3"
-                    />
-                  </MDBCol>
+                  {imageDetail.map((image, index) => (
+                    <MDBCol lg={4} md={12} key={index} className="mb-4 mb-lg-0">
+                      <img
+                        src={image.url}
+                        className="w-100 shadow-1-strong rounded mb-4"
+                        alt={`Image ${index + 1}`}
+                      />
+                    </MDBCol>
+                  ))}
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
